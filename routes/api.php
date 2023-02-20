@@ -20,5 +20,5 @@ use App\Http\Controllers\Api\EventApiController;
 // });
 
 Route::apiResource('api/v1/events', EventApiController::class);
-Route::get('api/v1/events/active-events', EventApiController::class, 'activeEvents');
+Route::get('api/v1/events/active-events', [EventApiController::class, 'activeEvents']);
 
