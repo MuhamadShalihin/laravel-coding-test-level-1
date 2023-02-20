@@ -19,6 +19,6 @@ use App\Http\Controllers\Api\EventApiController;
 //     return $request->user();
 // });
 
-Route::apiResource('/v1/events', EventApiController::class);
-Route::get('/v1/events/active-events', EventApiController::class, 'activeEvents');
+Route::apiResource('api/v1/events', EventApiController::class);
+Route::get('api/v1/events/active-events', EventApiController::class, 'activeEvents');
 
