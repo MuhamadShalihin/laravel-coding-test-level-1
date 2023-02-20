@@ -6,12 +6,16 @@
     <div class="text-center">
         <h2>Event List</h2>
         <br>
+        @if (Auth::check())
         <a href="events/create" class="btn btn-primary">
             <i class="bi bi-plus"></i>
             New Event
         </a>
+        @else
         <br>
         <br>
+        @endif    
+        
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <table class="table table-bordered">
@@ -22,7 +26,11 @@
                         <th scope="col">Slug</th>
                         <th scope="col">Start Date</th>
                         <th scope="col">End Date</th>
-                        <th scope="col">Action</th>
+                        @if (Auth::check())
+                            <th scope="col">Action</th>
+                        @else
+                            
+                        @endif                        
                     </tr>
                     </thead>
                     <tbody>
@@ -38,18 +46,22 @@
                             <td>{{ $event->slug }}</td>
                             <td>{{ $event->startAt }}</td>
                             <td>{{ $event->endAt }}</td>
-                            <td>
-                                <a href="events/{{ $event->uuid }}/edit" class="btn btn-info">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
-                                <form action="{{ route('events.destroy', ['event' => $event->uuid]) }}" method="post" style="display:inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('{{ __('Are you sure you want to delete selected list?') }}')">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </form> 
-                            </td>
+                            @if (Auth::check())
+                                <td>
+                                    <a href="events/{{ $event->uuid }}/edit" class="btn btn-info">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <form action="{{ route('events.destroy', ['event' => $event->uuid]) }}" method="post" style="display:inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('{{ __('Are you sure you want to delete selected list?') }}')">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form> 
+                                </td>
+                            @else
+                                
+                            @endif                            
                         </tr>
                     @endforeach
                     </tbody>
